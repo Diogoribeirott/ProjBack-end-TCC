@@ -36,7 +36,7 @@ public class RUser {
 
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateOfBirth;
-  
+
   @OneToMany
   private List<Subjects> subjects;
 
