@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class RUser {
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateOfBirth;
 
-  @OneToMany
+  @OneToMany(mappedBy = "rUser", cascade = CascadeType.ALL)
   private List<Subjects> subjects;
 
   @NotEmpty

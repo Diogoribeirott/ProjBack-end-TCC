@@ -43,6 +43,7 @@ public class RUserRepositoryTest {
     
   }
 
+
   @Test
   @DisplayName("Test save update RUser when sucessful")
   void Save_Update_RUser_when_sucessful(){
@@ -93,6 +94,7 @@ public class RUserRepositoryTest {
     List<RUser> AllRUser = rUserRepository.findAll();
     Assertions.assertThat(AllRUser).isNotEmpty();
     Assertions.assertThat(AllRUser.get(0)).isNotNull();
+    Assertions.assertThat(AllRUser.get(0).getId()).isNotNull();
     Assertions.assertThat(AllRUser.get(0)).isEqualTo(RUser);
 
   }
@@ -114,6 +116,7 @@ public class RUserRepositoryTest {
                 .password("joao123456")
                 .build();
   }
+
     private RUser createRUserWithNameInvalid(){
     return RUser.builder()
                 .name("")
@@ -123,5 +126,5 @@ public class RUserRepositoryTest {
                 .password("joao123456")
                 .build();
   }
-    
+  
 }
