@@ -3,6 +3,9 @@ package com.revisoes.TCCrevisoes.dominio;
 import lombok.Data;
 import lombok.Builder;
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -10,7 +13,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Entity
@@ -23,9 +25,9 @@ public class Review {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate dayOfReview;
 
-  @JsonIgnore
   private boolean done;
 
   @ManyToOne

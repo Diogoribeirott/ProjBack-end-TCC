@@ -1,6 +1,8 @@
 package com.revisoes.TCCrevisoes.dominio;
 
 import lombok.Data;
+
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import java.time.LocalDate;

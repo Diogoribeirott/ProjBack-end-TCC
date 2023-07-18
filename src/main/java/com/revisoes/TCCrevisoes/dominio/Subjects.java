@@ -1,13 +1,12 @@
   package com.revisoes.TCCrevisoes.dominio;
 
   import lombok.Data;
-  import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
   import jakarta.persistence.Id;
   import lombok.NoArgsConstructor;
-  import lombok.AllArgsConstructor;
 
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
   import jakarta.persistence.ManyToOne;

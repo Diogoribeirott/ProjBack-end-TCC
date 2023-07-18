@@ -26,7 +26,7 @@ public class RUserController {
   private RUserService rUserService;
 
   @GetMapping(path = "/all")
-  public ResponseEntity< List<RUser>> findALL(){
+  public ResponseEntity< List<RUser>> findAll(){
     return ResponseEntity.status(HttpStatus.OK).body(rUserService.findAll());
 
   }

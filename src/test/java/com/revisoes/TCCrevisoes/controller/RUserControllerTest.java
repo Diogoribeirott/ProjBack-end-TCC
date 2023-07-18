@@ -40,7 +40,7 @@ public class RUserControllerTest {
   @Test
   @DisplayName("test find by All and return one list of RUser sucessful")
    void FindByALL_when_sucessful(){
-    List<RUser> ListRUser = rUserController.findALL().getBody();
+    List<RUser> ListRUser = rUserController.findAll().getBody();
     Assertions.assertThat(ListRUser).isNotEmpty();
     Assertions.assertThat(ListRUser.get(0)).isNotNull();
     Assertions.assertThat(ListRUser.get(0)).isEqualTo(RUserTest.createRUser());

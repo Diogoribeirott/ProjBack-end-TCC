@@ -2,6 +2,7 @@ package com.revisoes.TCCrevisoes.service;
 
 import java.util.List;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.revisoes.TCCrevisoes.DTO.SubjectsDto;
 import com.revisoes.TCCrevisoes.dominio.Subjects;
@@ -9,6 +10,8 @@ import com.revisoes.TCCrevisoes.repository.SubjectsRepository;
 
 @Service
 public class SubjectsService {
+
+    @Autowired
     private SubjectsRepository subjectsRepository;
 
     public List<Subjects> findAll(){
@@ -22,9 +25,10 @@ public class SubjectsService {
     }
 
     public Subjects saveSubjects(Subjects subjects){
-      findById(1l);
-      return subjectsRepository.save(subjects);
 
+      return subjectsRepository.save(subjects);
+      
+      
     }
 
     public Subjects updateSubjects(Long id, SubjectsDto subjectsDto ){
