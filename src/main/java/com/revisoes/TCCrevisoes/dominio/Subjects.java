@@ -4,13 +4,13 @@
 import lombok.AllArgsConstructor;
 import lombok.Builder;
   import jakarta.persistence.Id;
-  import lombok.NoArgsConstructor;
-
+import jakarta.persistence.JoinColumn;
+import lombok.NoArgsConstructor;
 import java.util.List;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
   import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
   import jakarta.persistence.GeneratedValue;
   import jakarta.validation.constraints.NotEmpty;
@@ -20,6 +20,7 @@ import jakarta.persistence.GenerationType;
   @Builder
   @NoArgsConstructor
   @AllArgsConstructor
+  @Table(name = "Subjects")
   public class Subjects {
 
     @Id
@@ -32,7 +33,7 @@ import jakarta.persistence.GenerationType;
     @ManyToOne
     private RUser rUser;
 
-    @OneToMany(mappedBy = "subjects",cascade = CascadeType.ALL)
+    @OneToMany
     private List<Content> content;
 
   }

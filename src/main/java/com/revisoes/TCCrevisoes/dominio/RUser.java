@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.Size;
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Users")
 public class RUser {
 
   @Id
@@ -40,8 +42,8 @@ public class RUser {
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateOfBirth;
 
-  @OneToMany(mappedBy = "rUser", cascade = CascadeType.ALL)
-  private List<Subjects> subjects;
+  @OneToMany
+  private List<Subjects> subjects ;
 
   @NotEmpty
   @Size(min = 5, max= 70)

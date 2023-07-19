@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -19,6 +20,7 @@ import jakarta.persistence.GenerationType;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "revisions")
 public class Review {
 
   @Id

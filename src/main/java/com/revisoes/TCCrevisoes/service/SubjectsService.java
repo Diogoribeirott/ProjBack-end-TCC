@@ -25,7 +25,6 @@ public class SubjectsService {
     }
 
     public Subjects saveSubjects(Subjects subjects){
-
       return subjectsRepository.save(subjects);
       
       
