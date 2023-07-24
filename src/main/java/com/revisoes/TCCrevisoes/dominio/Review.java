@@ -32,7 +32,5 @@ public class Review {
 
   private boolean done;
 
-  @ManyToOne
-  private Content content;
     
 }

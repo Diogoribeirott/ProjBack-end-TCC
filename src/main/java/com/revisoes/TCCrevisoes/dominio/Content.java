@@ -36,9 +36,6 @@ public class Content {
   @NotEmpty(message = "Name of content cannot be empty")
   private String name;
   
-  @ManyToOne
-  private Subjects subjects;
-
   private String description;
   
   @JsonFormat(pattern = "yyyy-MM-dd")

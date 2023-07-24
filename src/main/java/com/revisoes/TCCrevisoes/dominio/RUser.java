@@ -3,10 +3,17 @@ package com.revisoes.TCCrevisoes.dominio;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import lombok.Builder;
 import java.time.LocalDate;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.CascadeType;
@@ -19,6 +26,7 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.revisoes.TCCrevisoes.enums.RUserEnum;
 
 @Data
 @Entity
@@ -26,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Users")
-public class RUser {
+public class RUser implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +51,7 @@ public class RUser {
   private LocalDate dateOfBirth;
 
   @OneToMany
+  @JoinColumn(name = "userrs")
   private List<Subjects> subjects ;
 
   @NotEmpty
@@ -52,6 +61,42 @@ public class RUser {
   @NotEmpty
   @Size(min = 5, max= 70)
   private String password;
+
+  private RUserEnum role;
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    if(this.role == RUserEnum.ADMIN){
+      return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+    }else{
+      return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+  }
+
+  @Override
+  public String getUsername() {
+    return login;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 
     
 }

@@ -6,6 +6,8 @@ import lombok.Builder;
   import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.Entity;
   import jakarta.persistence.ManyToOne;
@@ -30,10 +32,8 @@ import jakarta.persistence.GenerationType;
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
-    @ManyToOne
-    private RUser rUser;
 
     @OneToMany
-    private List<Content> content;
+    private List<Content> content = new ArrayList<>();
 
   }

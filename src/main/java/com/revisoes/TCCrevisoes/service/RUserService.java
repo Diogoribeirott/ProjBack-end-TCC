@@ -7,9 +7,13 @@
   import com.revisoes.TCCrevisoes.dominio.RUser;
   import com.revisoes.TCCrevisoes.repository.RUserRepository;
   import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
   @Service
-  public class RUserService {
+  public class RUserService implements UserDetailsService {
 
     @Autowired
     private RUserRepository rUserRepository;
@@ -26,6 +30,9 @@
     }
 
     public RUser saveRUser(RUser rUser){
+
+      String encryptedPassword = new BCryptPasswordEncoder().encode(rUser.getPassword());
+      rUser.setPassword(encryptedPassword);
       return rUserRepository.save(rUser);
 
     }
@@ -42,5 +49,12 @@
       rUserRepository.deleteById(id);
 
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+     
+     return rUserRepository.findByLogin(username);
+    }
+
     
   }
