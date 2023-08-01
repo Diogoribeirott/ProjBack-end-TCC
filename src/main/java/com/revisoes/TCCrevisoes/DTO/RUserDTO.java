@@ -1,9 +1,9 @@
 package com.revisoes.TCCrevisoes.DTO;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 @Builder

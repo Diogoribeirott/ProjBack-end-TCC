@@ -2,18 +2,17 @@ package com.revisoes.TCCrevisoes.service;
 
 import java.util.List;
 import org.hibernate.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.revisoes.TCCrevisoes.DTO.ReviewDto;
 import com.revisoes.TCCrevisoes.dominio.Review;
 import com.revisoes.TCCrevisoes.repository.ReviewRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ReviewService {
+
   @Autowired
   private ReviewRepository reviewRepository;
-
 
   public List<Review> findAll(){
     return reviewRepository.findAll();
@@ -45,5 +44,4 @@ public class ReviewService {
 
   }
    
-    
 }

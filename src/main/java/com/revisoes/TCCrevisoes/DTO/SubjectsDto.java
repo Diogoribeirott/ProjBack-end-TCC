@@ -1,7 +1,7 @@
 package com.revisoes.TCCrevisoes.DTO;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 public class SubjectsDto {

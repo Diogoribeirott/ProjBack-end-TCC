@@ -1,21 +1,18 @@
   package com.revisoes.TCCrevisoes.dominio;
 
   import lombok.Data;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+  import lombok.Builder;
+  import java.util.List;
+  import java.util.ArrayList;
   import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
-import jakarta.persistence.Entity;
-  import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
+  import lombok.NoArgsConstructor;
+  import lombok.AllArgsConstructor;
+  import jakarta.persistence.Table;
+  import jakarta.persistence.Entity;
+  import jakarta.persistence.OneToMany;
+  import jakarta.persistence.GenerationType;
   import jakarta.persistence.GeneratedValue;
-  import jakarta.validation.constraints.NotEmpty;
+ import jakarta.validation.constraints.NotEmpty;
 
   @Data
   @Entity
@@ -31,7 +28,6 @@ import jakarta.persistence.GenerationType;
 
     @NotEmpty(message = "Name cannot be empty")
     private String name;
-
 
     @OneToMany
     private List<Content> content = new ArrayList<>();

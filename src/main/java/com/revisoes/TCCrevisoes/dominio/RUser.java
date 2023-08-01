@@ -1,32 +1,27 @@
 package com.revisoes.TCCrevisoes.dominio;
 
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.Builder;
 import java.time.LocalDate;
+import java.util.Collection;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.revisoes.TCCrevisoes.enums.RUserEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Data
 @Entity
@@ -97,6 +92,5 @@ public class RUser implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
-
     
 }

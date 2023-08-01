@@ -2,15 +2,15 @@ package com.revisoes.TCCrevisoes.service;
 
 import java.util.List;
 import org.hibernate.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.revisoes.TCCrevisoes.DTO.ContentDto;
 import com.revisoes.TCCrevisoes.dominio.Content;
 import com.revisoes.TCCrevisoes.repository.ContentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ContentService {
+  
   @Autowired
   private ContentRepository contentRepository;
 
