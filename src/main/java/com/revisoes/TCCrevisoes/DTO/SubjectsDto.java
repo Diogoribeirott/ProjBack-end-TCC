@@ -8,4 +8,5 @@ public class SubjectsDto {
   @NotEmpty(message = "Name cannot be empty")
     private String name;
     
+    
 }

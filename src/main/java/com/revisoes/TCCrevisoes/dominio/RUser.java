@@ -4,11 +4,13 @@ import lombok.Data;
 import java.util.List;
 import lombok.Builder;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
@@ -36,6 +38,7 @@ public class RUser implements UserDetails {
   private Long id;
   
   @NotEmpty(message = "Name cannot be empty")
+  @Column(unique = true)
   private String name;
 
   @Email
@@ -46,11 +49,13 @@ public class RUser implements UserDetails {
   private LocalDate dateOfBirth;
 
   @OneToMany
-  @JoinColumn(name = "userrs")
-  private List<Subjects> subjects ;
+  @JoinColumn(name = "ruser_id")
+  @Builder.Default
+  private List<Subjects> subjects = new ArrayList<>();
 
   @NotEmpty
   @Size(min = 5, max= 70)
+  @Column(unique = true)
   private String login;
 
   @NotEmpty
@@ -92,5 +97,6 @@ public class RUser implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
     
 }

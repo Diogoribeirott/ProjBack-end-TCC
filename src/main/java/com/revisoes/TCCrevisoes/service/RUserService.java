@@ -5,18 +5,22 @@
   import com.revisoes.TCCrevisoes.DTO.RUserDTO;
   import org.springframework.stereotype.Service;
   import com.revisoes.TCCrevisoes.dominio.RUser;
+  import com.revisoes.TCCrevisoes.dominio.Subjects;
   import com.revisoes.TCCrevisoes.repository.RUserRepository;
   import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+  import org.springframework.security.core.userdetails.UserDetails;
+  import org.springframework.security.core.userdetails.UserDetailsService;
+  import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+  import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
   @Service
   public class RUserService implements UserDetailsService {
 
     @Autowired
     private RUserRepository rUserRepository;
+
+    @Autowired
+    private SubjectsService subjectsService;
 
     public List<RUser> findAll(){
       return rUserRepository.findAll();
@@ -30,17 +34,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
     }
 
     public RUser saveRUser(RUser rUser){
-
       String encryptedPassword = new BCryptPasswordEncoder().encode(rUser.getPassword());
       rUser.setPassword(encryptedPassword);
       return rUserRepository.save(rUser);
-
     }
 
     public RUser updateRUser(Long id, RUserDTO rUserDTO){
       RUser rUser = findById(id);
-      rUser.setPassword(rUserDTO.getPassword());
+      String encrytedPassword = new BCryptPasswordEncoder().encode(rUserDTO.getPassword());
+      rUser.setPassword(encrytedPassword);
       return rUserRepository.save(rUser);
+
+    }
+
+    public RUser updateRUserAddSubjects(Long id, Long id_subjects){
+      RUser rUser = findById(id);
+      Subjects subjects = subjectsService.findById(id_subjects);
+        if(rUser.getSubjects().stream().anyMatch(sub -> sub.getId().equals(subjects.getId()))){
+        throw new IllegalArgumentException("Subject with ID " +subjects.getId() + " already exists in the list");
+        }
+      rUser.getSubjects().add(subjects);
+    return rUserRepository.save(rUser);
 
     }
 

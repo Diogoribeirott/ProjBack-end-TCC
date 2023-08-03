@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import com.revisoes.TCCrevisoes.DTO.SubjectsDto;
+import com.revisoes.TCCrevisoes.dominio.Content;
 import com.revisoes.TCCrevisoes.dominio.Subjects;
 import com.revisoes.TCCrevisoes.repository.SubjectsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class SubjectsService {
 
     @Autowired
     private SubjectsRepository subjectsRepository;
+
+    @Autowired
+    private ContentService contentService;
 
     public List<Subjects> findAll(){
       return subjectsRepository.findAll();
@@ -36,7 +40,19 @@ public class SubjectsService {
 
     }
 
+    public Subjects updateSubjectsAddContent(Long id, Long id_content){
+      Subjects subjects = findById(id);
+      Content content= contentService.findById(id_content);
+      if(subjects.getContents().stream().anyMatch(cont -> cont.getId().equals(content.getId()))){
+        throw new IllegalArgumentException("Content with ID " + content.getId() + " already exists in the list");
+      }
+      subjects.getContents().add(content);
+      return subjectsRepository.save(subjects);
+
+    }
+
     public void deleteSubjects(Long id){
+      findById(id);
       subjectsRepository.deleteById(id);
 
     }

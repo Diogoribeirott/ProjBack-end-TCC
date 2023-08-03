@@ -15,7 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.ResponseEntity.status;
+import static org.springframework.http.ResponseEntity.notFound;
+import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
 @RequestMapping(value = "/content")
@@ -25,33 +32,57 @@ public class ContentController {
 
   @GetMapping(path = "/all")
   public ResponseEntity< List<Content>> findAll(){
-    return ResponseEntity.status(HttpStatus.OK).body(contentService.findAll());
+    return ok().body(contentService.findAll());
 
   }
 
   @GetMapping(value = "/{id}")
   public ResponseEntity<Content> findById(@PathVariable Long id){
-   return ResponseEntity.status(HttpStatus.OK).body(contentService.findById(id));
+    try {
+      return ok().body(contentService.findById(id));
+    } catch (ObjectNotFoundException e) {
+      return notFound().build();
+    }
 
   }
 
   @PostMapping
-  public ResponseEntity<Content> sabeContent(@Valid @RequestBody  Content content){
-    return ResponseEntity.status(HttpStatus.CREATED).body(contentService.saveContent(content));
+  public ResponseEntity<Content> saveContent(@Valid @RequestBody Content content){
+    return status(HttpStatus.CREATED).body(contentService.saveContent(content));
 
   }
 
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> deleteContent(@PathVariable Long id){
-    contentService.deleteContent(id);
-    return ResponseEntity.noContent().build();
+    try {
+      contentService.deleteContent(id);
+      return noContent().build();
+    } catch (ObjectNotFoundException e) {
+      return notFound().build();
+    }
 
   }
  
   @PutMapping(value = "/{id}")
   public ResponseEntity<Content> updateContent(@PathVariable Long id, @RequestBody @Valid ContentDto contentDto){
-  return ResponseEntity.ok().body(contentService.updateContent(id, contentDto));
+    try {
+       return ok().body(contentService.updateContent(id, contentDto));
+    } catch (ObjectNotFoundException e) {
+        return notFound().build();
+    }
+ 
+  }
 
-}
+  @PutMapping(value = "/{id}/{id_review}")
+  public ResponseEntity<Content> updateContentAddReview(@PathVariable Long id, @PathVariable Long id_review){
+    try {
+      return ok().body(contentService.updateContentAddReview(id,id_review));
+    } catch (ObjectNotFoundException e) {
+      return notFound().build();
+    }catch(IllegalArgumentException e){
+      return status(CONFLICT).build();
+    }
+
+  }
     
 }

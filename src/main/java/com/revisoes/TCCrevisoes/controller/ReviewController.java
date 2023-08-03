@@ -15,7 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
+import static org.springframework.http.ResponseEntity.noContent;
+import static org.springframework.http.ResponseEntity.notFound;
 
 @RestController
 @RequestMapping(value = "/review")
@@ -26,34 +32,45 @@ public class ReviewController {
 
   @GetMapping(path = "/all")
   public ResponseEntity< List<Review>> findAll(){
-    return ResponseEntity.status(HttpStatus.OK).body(reviewService.findAll());
+    return status(HttpStatus.OK).body(reviewService.findAll());
 
   }
 
   @GetMapping(value = "/{id}")
   public ResponseEntity<Review> findById(@PathVariable Long id){
-   return ResponseEntity.status(HttpStatus.OK).body(reviewService.findById(id));
-
+    try {
+      return status(HttpStatus.OK).body(reviewService.findById(id));
+    } catch (ObjectNotFoundException e) {
+      return notFound().build();
+    }
+   
   }
 
   @PostMapping
-  public ResponseEntity<Review> sabeReview(@Valid @RequestBody  Review review){
-    return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.saveReview(review));
+  public ResponseEntity<Review> saveReview(@Valid @RequestBody  Review review){
+    return status(HttpStatus.CREATED).body(reviewService.saveReview(review));
 
   }
 
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> deleteReview(@PathVariable Long id){
-    reviewService.deleteReview(id);
-    return ResponseEntity.noContent().build();
+    try {
+      reviewService.deleteReview(id);
+      return noContent().build();
+    } catch (ObjectNotFoundException e) {
+      return notFound().build();
+    }
 
   }
  
   @PutMapping(value = "/{id}")
   public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody @Valid ReviewDto reviewDto){
-  return ResponseEntity.ok().body(reviewService.updateReview(id, reviewDto));
+    try {
+      return ok().body(reviewService.updateReview(id, reviewDto));
+    } catch (ObjectNotFoundException e) {
+      return notFound().build();
+    }
 
-}
-    
-    
+  }
+
 }

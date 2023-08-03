@@ -2,17 +2,20 @@
 
   import lombok.Data;
   import lombok.Builder;
-  import java.util.List;
-  import java.util.ArrayList;
   import jakarta.persistence.Id;
-  import lombok.NoArgsConstructor;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import lombok.NoArgsConstructor;
   import lombok.AllArgsConstructor;
   import jakarta.persistence.Table;
-  import jakarta.persistence.Entity;
-  import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Entity;
   import jakarta.persistence.GenerationType;
   import jakarta.persistence.GeneratedValue;
- import jakarta.validation.constraints.NotEmpty;
+  import jakarta.validation.constraints.NotEmpty;
 
   @Data
   @Entity
@@ -30,6 +33,8 @@
     private String name;
 
     @OneToMany
-    private List<Content> content = new ArrayList<>();
+    @Builder.Default
+    @JoinColumn(name = "subjects_id")
+    private List<Content> contents = new ArrayList<>();
 
   }

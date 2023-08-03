@@ -2,9 +2,12 @@ package com.revisoes.TCCrevisoes.dominio;
 
 import lombok.Data;
 import lombok.Builder;
-import java.util.List;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.Table;
@@ -33,9 +36,11 @@ public class Content {
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate starDate;
   
-  @OneToMany
-  private List<Review> revisions;
-  
   private String description;
+
+    @OneToMany
+    @Builder.Default
+    @JoinColumn(name = "contents_id")
+    private List<Review> reviews = new ArrayList<>();
   
 }

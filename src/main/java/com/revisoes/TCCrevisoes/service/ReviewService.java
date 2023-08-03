@@ -31,6 +31,7 @@ public class ReviewService {
   }
 
   public Review updateReview(Long id, ReviewDto reviewDto){
+    findById(id);
     Review review = findById(id);
     review.setDayOfReview(reviewDto.getDayOfReview());
     review.setDone(reviewDto.getDone());
