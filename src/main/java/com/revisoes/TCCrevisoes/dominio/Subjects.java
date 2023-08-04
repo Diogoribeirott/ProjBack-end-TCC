@@ -1,4 +1,4 @@
-  package com.revisoes.TCCrevisoes.dominio;
+package com.revisoes.TCCrevisoes.dominio;
 
   import lombok.Data;
   import lombok.Builder;

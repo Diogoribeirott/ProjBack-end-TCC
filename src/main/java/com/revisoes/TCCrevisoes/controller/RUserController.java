@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -42,10 +43,14 @@ public class RUserController {
 
   @PostMapping(path = "/login")
   public ResponseEntity<String> login(@RequestBody @Valid AuthenticationDto data){
-    var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(),data.getPassword());
-    var auth = this.authenticationManager.authenticate(usernamePassword);
-    var token = tokenService.generateToken((RUser) auth.getPrincipal());
+    try {
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(),data.getPassword());
+            var auth = this.authenticationManager.authenticate(usernamePassword);
+            var token = tokenService.generateToken((RUser) auth.getPrincipal());
     return ok(token);
+        } catch (BadCredentialsException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
   }
 

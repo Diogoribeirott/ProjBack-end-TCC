@@ -41,14 +41,17 @@ public class SubjectsService {
     }
 
     public Subjects updateSubjectsAddContent(Long id, Long id_content){
+      
       Subjects subjects = findById(id);
       Content content= contentService.findById(id_content);
+
       if(subjects.getContents().stream().anyMatch(cont -> cont.getId().equals(content.getId()))){
         throw new IllegalArgumentException("Content with ID " + content.getId() + " already exists in the list");
       }
-      subjects.getContents().add(content);
-      return subjectsRepository.save(subjects);
 
+      subjects.getContents().add(content);
+
+      return subjectsRepository.save(subjects);
     }
 
     public void deleteSubjects(Long id){

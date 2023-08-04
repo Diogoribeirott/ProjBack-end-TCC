@@ -48,7 +48,8 @@ public class ReviewController {
 
   @PostMapping
   public ResponseEntity<Review> saveReview(@Valid @RequestBody  Review review){
-    return status(HttpStatus.CREATED).body(reviewService.saveReview(review));
+    Review saveReview = reviewService.saveReview(review);
+    return status(HttpStatus.CREATED).body(saveReview);
 
   }
 
