@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -48,7 +49,7 @@ public class RUser implements UserDetails {
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate dateOfBirth;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true )
   @JoinColumn(name = "ruser_id")
   @Builder.Default
   private List<Subjects> subjects = new ArrayList<>();
