@@ -263,7 +263,7 @@ public class RUserControllerTest {
       //scenario
      BDDMockito.when(rUserController.updateRUserAddSubjectss(1L ,1l)).thenThrow(new ObjectNotFoundException("object not found"));
 
-      //execution
+      //execution 
       ObjectNotFoundException assertThrows = assertThrows(ObjectNotFoundException.class, () -> rUserController.updateRUserAddSubjectss(1l,1l));
 
       //validation

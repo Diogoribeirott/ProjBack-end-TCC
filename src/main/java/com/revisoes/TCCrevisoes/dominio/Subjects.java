@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
   import jakarta.persistence.GenerationType;
   import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ import jakarta.persistence.Entity;
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @JoinColumn(name = "subjects_id")
     private List<Content> contents = new ArrayList<>();

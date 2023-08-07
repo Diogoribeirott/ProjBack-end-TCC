@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class Content {
   
   private String description;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @JoinColumn(name = "contents_id")
     private List<Review> reviews = new ArrayList<>();
