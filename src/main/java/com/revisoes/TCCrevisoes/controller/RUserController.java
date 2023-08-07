@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import com.revisoes.TCCrevisoes.config.TokenService;
 import com.revisoes.TCCrevisoes.service.RUserService;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-
 import com.revisoes.TCCrevisoes.DTO.AuthenticationDto;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,7 +99,7 @@ public class RUserController {
     }
     }
 
-    @PutMapping(value = "/{id}/{id_subjects}")
+    @PutMapping(value = "/add/{id}/{id_subjects}")
     public ResponseEntity<RUser> updateRUserAddSubjectss(@PathVariable Long id, @PathVariable Long id_subjects ){
       try {
         return ok().body(rUserService.updateRUserAddSubjects(id,id_subjects));
